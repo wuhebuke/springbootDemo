@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.company.springbootDemo.dao.PersonMapper">
+    <resultMap id="PersonMap" type="com.company.springbootDemo.entity.Person">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="name" jdbcType="VARCHAR" property="name"/>
+        <result column="gender" jdbcType="VARCHAR" property="gender"/>
+        <result column="age" jdbcType="VARCHAR" property="age"/>
+        <result column="province" jdbcType="VARCHAR" property="province"/>
+        <result column="city" jdbcType="VARCHAR" property="city"/>
+        <result column="district" jdbcType="VARCHAR" property="district"/>
+    </resultMap>
+
+    <sql id="PersonResult">
+        id,name,gender,age,province,city,district
+    </sql>
+
+    <select id="queryPerson" resultMap="PersonMap">
+        select * from person
+    </select>
+
+    <insert id="insertPersonRole">
+        insert into person_role(person_id,role_id,create_time,update_time) values
+            <foreach collection="list" index="index" separator="," item="item">
+                (#{item.personId},#{item.roleId},now(),now())
+            </foreach>
+
+    </insert>
+</mapper>

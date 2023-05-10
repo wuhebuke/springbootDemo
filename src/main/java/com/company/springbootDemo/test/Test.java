@@ -1,4 +1,4 @@
-package com.company;
+package com.company.springbootDemo.test;
 
 import java.util.Arrays;
 

@@ -12,6 +12,7 @@ public class Person {
     private String name;
     private String gender;
     private Integer age;
+    private Integer score;
     private String province;
     private String city;
     private String district;

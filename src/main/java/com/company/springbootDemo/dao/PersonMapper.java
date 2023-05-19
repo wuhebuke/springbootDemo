@@ -12,5 +12,13 @@ import java.util.List;
 public interface PersonMapper {
     List<Person> queryPerson();
 
+    Person queryPersonById(int id);
+
     int insertPersonRole(List<PersonRole> personRoleList);
+
+    List<Person> selectiveMaxScorePersonByAge(Integer age);
+
+    List<Person> selectiveMinScorePersonByAge(Integer age);
+
+    List<Person> selectiveScorePersonByAge(Integer age);
 }

@@ -6,17 +6,25 @@
         <result column="name" jdbcType="VARCHAR" property="name"/>
         <result column="gender" jdbcType="VARCHAR" property="gender"/>
         <result column="age" jdbcType="VARCHAR" property="age"/>
+        <result column="score" jdbcType="INTEGER" property="score"/>
         <result column="province" jdbcType="VARCHAR" property="province"/>
         <result column="city" jdbcType="VARCHAR" property="city"/>
         <result column="district" jdbcType="VARCHAR" property="district"/>
     </resultMap>
 
     <sql id="PersonResult">
-        id,name,gender,age,province,city,district
+        id,name,gender,age,score,province,city,district
     </sql>
 
     <select id="queryPerson" resultMap="PersonMap">
-        select * from person
+        select <include refid="PersonResult"/> from person
+    </select>
+
+    <select id="queryPersonById" resultMap="PersonMap">
+        select <include refid="PersonResult"/> from person where 1=1
+        <if test="id!=null">
+            and id=#{id}
+        </if>
     </select>
 
     <insert id="insertPersonRole">
@@ -26,4 +34,25 @@
             </foreach>
 
     </insert>
+
+    <select id="selectiveMaxScorePersonByAge" resultMap="PersonMap">
+        select <include refid="PersonResult"/> from person where score &gt;= '87'
+       <if test="age!=null">
+           and age=#{age}
+       </if>
+    </select>
+
+    <select id="selectiveMinScorePersonByAge" resultMap="PersonMap">
+        select <include refid="PersonResult"/> from person where score &lt;= '87'
+       <if test="age!=null">
+           and age=#{age}
+       </if>
+    </select>
+
+    <select id="selectiveScorePersonByAge" resultMap="PersonMap">
+        select <include refid="PersonResult"/> from person where 1=1
+       <if test="age!=null">
+           and age=#{age}
+       </if>
+    </select>
 </mapper>

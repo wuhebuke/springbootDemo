@@ -1,11 +1,12 @@
 package com.company.springbootDemo.service;
 
+import com.company.common.utils.StringUtils;
 import com.company.springbootDemo.dao.PersonMapper;
 import com.company.springbootDemo.entity.Person;
 import com.company.springbootDemo.entity.PersonRole;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.transaction.support.TransactionTemplate;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
@@ -19,10 +20,14 @@ import java.util.List;
 @Service
 public class PersonService {
 
-    public static final String FLAG="0";
-
     @Resource
     private PersonMapper personMapper;
+
+    @Resource
+    private TransactionTemplate transactionTemplate;
+
+    public static final String FLAG="0";
+
 
     public List<Person> queryPerson(){
         return personMapper.queryPerson();
@@ -46,11 +51,13 @@ public class PersonService {
     }
 
     public List<Person> selectivePerson(Integer flag,Integer age){
-
-        if (flag==1){  //存在NullPointerException
-            return personMapper.selectiveMaxScorePersonByAge(age);
-        }else if (flag==0){
-            return personMapper.selectiveMinScorePersonByAge(age);
+        //存在NullPointerException
+        if (StringUtils.isNotNull(flag)){
+            if (flag==0){
+                return personMapper.selectiveMaxScorePersonByAge(age);
+            }else {
+                return personMapper.selectiveMinScorePersonByAge(age);
+            }
         }else {
             return personMapper.selectiveScorePersonByAge(age);
         }

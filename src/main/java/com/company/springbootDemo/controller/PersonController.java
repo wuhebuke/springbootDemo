@@ -40,4 +40,9 @@ public class PersonController {
     public List<Person> selectivePerson(Integer flag,Integer age){
         return personService.selectivePerson(flag,age);
     }
+
+    @GetMapping("/queryPersonName")
+    public String queryPersonName(Integer id){
+        return personService.queryPersonName(id);
+    }
 }

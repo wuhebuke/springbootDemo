@@ -62,4 +62,8 @@ public class PersonService {
             return personMapper.selectiveScorePersonByAge(age);
         }
     }
+
+    public String queryPersonName(Integer id){
+        return personMapper.queryPersonName(id);
+    }
 }

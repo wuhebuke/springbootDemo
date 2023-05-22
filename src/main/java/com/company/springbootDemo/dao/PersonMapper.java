@@ -21,4 +21,6 @@ public interface PersonMapper {
     List<Person> selectiveMinScorePersonByAge(Integer age);
 
     List<Person> selectiveScorePersonByAge(Integer age);
+
+    String queryPersonName(Integer id);
 }

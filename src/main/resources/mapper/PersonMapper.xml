@@ -55,4 +55,8 @@
            and age=#{age}
        </if>
     </select>
+
+    <select id="queryPersonName" resultType="string">
+        select name from person where id=#{id,jdbcType=INTEGER}
+    </select>
 </mapper>

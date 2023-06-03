@@ -3,9 +3,9 @@ server:
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/big_data?useUnicode=true&characterEncoding=UTF-8
+    url: jdbc:mysql://192.168.42.122:3306/big_data?useUnicode=true&characterEncoding=UTF-8
     username: root
-    password: root123
+    password: fly18
 #整合mybatis
 mybatis:
   mapper-locations: classpath:mapper/*.xml

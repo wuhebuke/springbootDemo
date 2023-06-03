@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.company.springbootDemo.dao.ZoningMapper">
+    <select id="queryCounty" resultType="com.company.springbootDemo.entity.zoning.County">
+        select rpad(id,6,0) as code,name from lc_zoning_code where dict_code='County'
+    </select>
+
+    <select id="queryCity" resultType="com.company.springbootDemo.entity.zoning.City">
+        select rpad(id,6,0) as code,name from lc_zoning_code where dict_code='City'
+    </select>
+
+    <select id="queryProvince" resultType="com.company.springbootDemo.entity.zoning.Province">
+        select rpad(id,6,0) as code,name from lc_zoning_code where dict_code='Province'
+    </select>
+
+    <select id="queryCityByProvince" resultType="com.company.springbootDemo.entity.zoning.City">
+        select a.code,a.name
+        from(select substr(code,1,2) as value ,code,name from city) a
+                inner join (select substr(code,1,2) as value from province) b
+                           on a.value=b.value where b.value=#{value}
+    </select>
+
+    <select id="queryCountyByCity" resultType="com.company.springbootDemo.entity.zoning.County">
+        select a.code,a.name
+        from(select substr(code,1,4) as value ,code,name from county) a
+                inner join (select substr(code,1,4) as value from city) b
+                           on a.value=b.value where b.value=#{value}
+    </select>
+</mapper>
